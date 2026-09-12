@@ -131,8 +131,11 @@ struct ContentView: View {
                         }
                     }) {
                         Button("Initialize System", action: {
-                            mgr.vfsinit()
-                            mgr.sbxescape()
+                            mgr.vfsinit { success in
+                                if success {
+                                    mgr.sbxescape()
+                                }
+                            }
                         })
                         .disabled(!mgr.hasOffsets || !mgr.dsready || mgr.vfsrunning || mgr.sbxrunning || (mgr.vfsready && mgr.sbxready))
                     }
